@@ -1,4 +1,4 @@
-﻿function go([string]$key, [string]$selectedPath = "", [switch]$help, [switch]$h, [switch]$add, [switch]$a, [switch]$delete, [switch]$d, [switch]$clear, [switch]$c, [switch]$show, [switch]$s, [switch]$showAll, [switch]$sa)
+﻿function go([string]$key, [string]$selectedPath = "", [switch]$help, [switch]$h, [switch]$add, [switch]$a, [switch]$delete, [switch]$d, [switch]$clear, [switch]$c, [switch]$show, [switch]$s, [switch]$showAll, [switch]$sa, [switch]$last, [switch]$l)
 {
     #------------------------------------Help------------------------------------
     if($help -or $h)
@@ -28,6 +28,26 @@
         Write-Host "    - Pressing the tab button with no letters will select your last selected keyword." 
         Write-Host
 
+        return
+    }
+
+    #------------------------------------Go Last------------------------------------    
+    if($last -or $l)
+    {
+        $rememberFilePath = "$([Environment]::GetFolderPath('LocalApplicationData'))\Go\rememberLast.txt"
+        $rememberContent = Get-Content $rememberFilePath
+        
+        $lastSelected = ""
+
+        $rememberContent | ForEach {
+            $lastSelected = $_
+        }
+        
+        if($lastSelected)
+        {
+            Push-Location $lastSelected
+        }
+    
         return
     }
 
@@ -259,7 +279,6 @@
     if($key)
     {
         $directoryContent = Get-Content $directoryPath
-        $bookmarkKey = ""
         $bookmark = ""
 
         if($directoryContent)
@@ -271,7 +290,6 @@
                 if($keys[0] -eq $key.ToLower())
                 {
                     $bookmark = $keys[1]
-                    $bookmarkKey = $keys[0]
 
                     break
                 }
@@ -287,7 +305,7 @@
                 }
             
                 Clear-Content $directoryLastBookmark
-                Add-Content -Value $bookmarkKey -Path $directoryLastBookmark
+                Add-Content -Value $bookmark -Path $directoryLastBookmark
                 Push-Location $bookmark
             }
         }
@@ -306,45 +324,30 @@ function TabExpansion($line, $lastWord) {
 
 function goTabExpansion($filter) {
     $textFilePath = "$([Environment]::GetFolderPath('LocalApplicationData'))\Go\go.txt"
-    $rememberFilePath = "$([Environment]::GetFolderPath('LocalApplicationData'))\Go\rememberLast.txt"
     $textContent = Get-Content $textFilePath
-    $rememberContent = Get-Content $rememberFilePath
     $inputKeys = $filter.Split(' ')
     $matchingKey = $inputKeys[$inputKeys.length - 1]
 
-    if($rememberContent -and $matchingKey -eq "")
+    if($textContent)
     {
-        $lastSelected = ""
+        $fileHash = @{}
 
-        $rememberContent | ForEach {
-            $lastSelected = $_.Split("|")[0]
-        }        
+        $textContent | ForEach-Object {
+            $keys = $_.Split("|")
 
-        $lastSelected | sort
-    }
-    else
-    {
-        if($textContent)
-        {
-            $fileHash = @{}
-
-            $textContent | ForEach-Object {
-                $keys = $_.Split("|")
-
-                if($keys[0] -ne $matchingKey)
-                {
-                    $fileHash.Add($keys[0], $keys[1])
-                }
-            }
-
-            if($fileHash.Count -gt 0)
+            if($keys[0] -ne $matchingKey)
             {
-                $fileHash.Keys | ForEach-Object {
-                    if($_.StartsWith($matchingKey))
-                    {
-                        #this will output the auto filled key to the screen.
-                        $_ | sort
-                    }
+                $fileHash.Add($keys[0], $keys[1])
+            }
+        }
+
+        if($fileHash.Count -gt 0)
+        {
+            $fileHash.Keys | ForEach-Object {
+                if($_.StartsWith($matchingKey))
+                {
+                    #this will output the auto filled key to the screen.
+                    $_ | sort
                 }
             }
         }
