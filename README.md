@@ -3,8 +3,26 @@ Go-Shell
 
 Allows powershell users to navigate to specific directory paths in a quick and easy way.
 
+Install Steps
+=============
+
+**Using the installer**
+
+1. Run the Go-Shell.exe
+
+**Manual installation**
+
+1. Navigate to **>** C:\Users\{user}\Documents\WindowsPowerShell
+2. Copy the Modules forlder into this location.
+3. If using PowerShell v2
+	- Open a PowerShell window
+	- Run **>** Import-Module go
+	- Run **>** Import-Module tabExtensions
+4. If using PowerShell v3 the modules should be loaded automatically into PowerShell. If the tabbing or go functions are not working run step 3 commands.
+
 Help File
 =========
+
 **Usage:**
 
 	go label
