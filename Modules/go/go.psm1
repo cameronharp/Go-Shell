@@ -14,6 +14,7 @@
         Write-Host "    go label C:\SomePath -add or -a"
         Write-Host "    go -showAll or -sa"
         Write-Host "    go -clear or -c"
+        Write-Host "    go -last or -l"
         Write-Host
         Write-Host "Switches:"
         Write-Host "    -add or -a             Adds the current directory."
@@ -21,11 +22,11 @@
         Write-Host "    -showAll or -sa        Show all the keys and values in the directory."
         Write-Host "    -show or -s            Show the specific key and value."
         Write-Host "    -clear or -c           Clears all the keys and values in the directory."
+        Write-Host "    -last or -l            Goes to the last used go key."
         Write-Host "    -help or -h            Displays this screen."
         Write-Host
         Write-Host "Tips:"
         Write-Host "    - Pressing the tab button after a few letters will auto fill the rest of the keyword."
-        Write-Host "    - Pressing the tab button with no letters will select your last selected keyword." 
         Write-Host
 
         return
