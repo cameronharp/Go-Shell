@@ -52,3 +52,8 @@ Help File
 	-clear or -c       Clears all the keys and values in the directory.
 
 	-help or -h        Displays this screen.
+
+**Tips:**
+
+	- Pressing the tab button after a few letters will auto fill the rest of the keyword.
+	- Pressing the tab button with no letters will select your last selected keyword.
