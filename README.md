@@ -4,15 +4,15 @@ Allows PowerShell users to navigate to a specific directory in a quick and easy 
 
 ##Installation##
 
-If you have [PsGet](http://psget.net/) installed you can simply execute the following in PowerShell:
+If you have [PsGet](http://psget.net/) installed you can simply execute the following in PowerShell v3:
 
-<pre>Install-Module Go</pre>
+	Install-Module Go
 
-Or you can use one of the following alternatives:
+If you have [PsGet](http://psget.net/) installed you can simply execute the following in PowerShell v2:
 
-####Using the Installer####
+	Install-Module Go -AddToProfile 
 
-1. Run `Setup.exe`
+Or you can use the following alternative:
 
 ####Manually####
 
@@ -43,4 +43,3 @@ Switches:
 
 Tips:
     - Pressing the tab button after a few letters will auto fill the rest of the bookmark keyword.
-    - Pressing the tab button with no letters will select your last selected bookmark.</pre>
