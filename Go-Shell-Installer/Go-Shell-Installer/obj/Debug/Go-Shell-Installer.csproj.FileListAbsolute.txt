@@ -1,6 +1,0 @@
-D:\GitHub\Go-Shell\Go-Shell-Installer\Go-Shell-Installer\bin\Debug\Go-Shell-Installer.exe.config
-D:\GitHub\Go-Shell\Go-Shell-Installer\Go-Shell-Installer\bin\Debug\Go-Shell-Installer.exe
-D:\GitHub\Go-Shell\Go-Shell-Installer\Go-Shell-Installer\bin\Debug\Go-Shell-Installer.pdb
-D:\GitHub\Go-Shell\Go-Shell-Installer\Go-Shell-Installer\obj\Debug\Go-Shell-Installer.csprojResolveAssemblyReference.cache
-D:\GitHub\Go-Shell\Go-Shell-Installer\Go-Shell-Installer\obj\Debug\Go-Shell-Installer.exe
-D:\GitHub\Go-Shell\Go-Shell-Installer\Go-Shell-Installer\obj\Debug\Go-Shell-Installer.pdb
