@@ -1,59 +1,46 @@
-Go-Shell
-========
+#Go-Shell#
 
-Allows powershell users to navigate to specific directory paths in a quick and easy way.
+Allows PowerShell users to navigate to a specific directory in a quick and easy way using bookmarks.
 
-Install Steps
-=============
+##Installation##
 
-**Using the installer**
+If you have [PsGet](http://psget.net/) installed you can simply execute the following in PowerShell:
 
-1. Run the Go-Shell.exe
+<pre>Install-Module Go</pre>
 
-**Manual installation**
+Or you can use one of the following alternatives:
 
-1. Navigate to **>** C:\Users\{user}\Documents\WindowsPowerShell
-2. Copy the Modules forlder into this location.
-3. If using PowerShell v2
-	- Open a PowerShell window
-	- Run **>** Import-Module go
-	- Run **>** Import-Module tabExtensions
-4. If using PowerShell v3 the modules should be loaded automatically into PowerShell. If the tabbing or go functions are not working run step 3 commands.
+####Using the Installer####
 
-Help File
-=========
+1. Run Setup.exe
 
-**Usage:**
+####Manually####
 
-	go label
+1. Copy Go.psm1 to your modules folder (e.g. $Env:PSModulePath\Go\ )
+2. Execute Import-Module Go (or add this command to your profile)
+3. Bookmark away!
 
-	go label -delete or -d
+##How to Use Go##
 
-	go label -show or -s
+<pre>Usage:
+    go label
+    go label -delete or -d
+    go label -show or -s
+    go label -add or -a
+    go label C:\SomePath -add or -a
+    go -showAll or -sa
+    go -clear or -c
+    go -last or -l
 
-	go label -showAll or -sa
+Switches:
+    -add or -a             Adds the current directory.
+    -delete or -d          Remove the given key from the directory.
+    -showAll or -sa        Show all the keys and values in the directory.
+    -show or -s            Show the specific key and value.
+    -clear or -c           Clears all the keys and values in the directory.
+    -last or -l            Goes to the last used go key.
+    -help or -h            Displays this screen.
 
-	go label -add or -a
-
-	go label C:\SomePath -add
-
-	go -clear or -c
-
-**Switches:**
-
-	-add or -a,        Adds the current directory.
-
-	-delete or -d      Remove the given key from the directory.
-
-	-showAll or -sa    Show all the keys and values in the directory.
-
-	-show or -s        Show the specific key and value.
-
-	-clear or -c       Clears all the keys and values in the directory.
-
-	-help or -h        Displays this screen.
-
-**Tips:**
-
-	- Pressing the tab button after a few letters will auto fill the rest of the keyword.
-	- Pressing the tab button with no letters will select your last selected keyword.
+Tips:
+    - Pressing the tab button after a few letters will auto fill the rest of the bookmark keyword.
+    - Pressing the tab button with no letters will select your last selected bookmark.</pre>
