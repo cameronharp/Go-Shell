@@ -12,12 +12,12 @@ Or you can use one of the following alternatives:
 
 ####Using the Installer####
 
-1. Run Setup.exe
+1. Run `Setup.exe`
 
 ####Manually####
 
-1. Copy Go.psm1 to your modules folder (e.g. $Env:PSModulePath\Go\ )
-2. Execute Import-Module Go (or add this command to your profile)
+1. Copy `Go.psm1` to your modules folder (e.g. `$Env:PSModulePath\Go\` )
+2. Execute `Import-Module Go` (or add this command to your profile)
 3. Bookmark away!
 
 ##How to Use Go##
