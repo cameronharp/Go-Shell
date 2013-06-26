@@ -42,4 +42,4 @@ Switches:
     -help or -h            Displays this screen.
 
 Tips:
-    - Pressing the tab button after a few letters will auto fill the rest of the bookmark keyword.
+    - Pressing the tab button after a few letters will auto fill the rest of the bookmark keyword.</pre>
