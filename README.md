@@ -2,6 +2,8 @@
 
 Allows PowerShell users to navigate to a specific directory in a quick and easy way using bookmarks.
 
+![image](https://dl.dropboxusercontent.com/u/38619078/images/Go-Shell.gif)
+
 ##Installation##
 
 If you have [PsGet](http://psget.net/) installed you can simply execute the following in PowerShell v3:
