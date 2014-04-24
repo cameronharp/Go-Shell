@@ -63,7 +63,7 @@ function go([string]$key, [string]$selectedPath = "", [switch]$help, [switch]$h,
 
     if(!$hasdirectory)
     {
-        $doNothing = New-Item -ItemType directory -Path $directoryBasePath
+        $doNothing = New-Item -ItemType directory -Path $Global:GoDataDirectory
         $doNothing = New-item $directoryPath -type file
         $doNothing = New-Item $directoryLastBookmark -type file
     }
