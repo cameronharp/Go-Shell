@@ -22,6 +22,18 @@ Or you can use the following alternative:
 2. Execute `Import-Module Go` (or add this command to your profile)
 3. Bookmark away!
 
+####Customization####
+Go-Shell stores its data normally in two file located in the `~\AppData\Local\Go\`-folder.
+
+This is changeable by setting this in your profile:
+<pre>
+	$Global:GoDataDirectory = "$([Environment]::GetFolderPath('LocalApplicationData'))\Go\"
+	$Global:GoRememberFileName = "rememberLast.txt"
+	$Global:GoBookmarkFileName = "go.txt"
+</pre>
+
+The values above are the defaults.
+
 ##How to Use Go##
 
 <pre>Usage:
