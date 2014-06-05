@@ -317,15 +317,24 @@ function go([string]$key, [string]$selectedPath = "", [switch]$help, [switch]$h,
 }
 
 #------------------------------Tab Expansion------------------------------
-function TabExpansion($line, $lastWord) {
-  $LineBlocks = [regex]::Split($line, '[|;]')
-  $lastBlock = $LineBlocks[-1] 
- 
-  switch -regex ($lastBlock) {
-    'go (.*)' { goTabExpansion($lastBlock) }
-  }
+# Check if function TabExpansion already exists and backup existing version to
+# prevent breaking other TabExpansion implementations.
+# Taken from posh-git https://github.com/dahlbyk/posh-git/blob/master/GitTabExpansion.ps1#L297
+
+if (Test-Path Function:\TabExpansion) {
+    Rename-Item Function:\TabExpansion TabExpansionBackup
 }
 
+function TabExpansion($line, $lastWord) {
+    $lastBlock = [regex]::Split($line, '[|;]')[-1].TrimStart()
+
+    switch -regex ($lastBlock) {
+        # Execute go tab expansion for go command
+        '^go (.*)' { goTabExpansion($lastBlock) }
+        # Fall back on existing tab expansion
+        default { if (Test-Path Function:\TabExpansionBackup) { TabExpansionBackup $line $lastWord } }
+    }
+}
 function goTabExpansion($filter) {
     $textFilePath = $Global:GoDataDirectory + $Global:GoBookmarkFileName
     $textContent = Get-Content $textFilePath
@@ -357,3 +366,8 @@ function goTabExpansion($filter) {
         }
     }
 }
+
+# Explicitly export the functions to hide the TabExpansionBackup function if it exists
+Export-ModuleMember go
+Export-ModuleMember goTabExpansion
+Export-ModuleMember TabExpansion
