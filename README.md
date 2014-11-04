@@ -8,10 +8,10 @@ Allows PowerShell users to navigate to a specific directory in a quick and easy 
 
 If you have [PsGet](http://psget.net/) installed you can simply execute the following:
 
-###PowerShell 3###
+#####PowerShell 3#####
 	Install-Module Go
 
-###PowerShell 2###
+#####PowerShell 2#####
 	Install-Module Go -AddToProfile 
 
 ####Manual Install####
@@ -26,9 +26,9 @@ Go-Shell stores its data normally in two files located in the `~\AppData\Local\G
 This is changeable by setting this in your profile:
 
 <pre>
-	$Global:GoDataDirectory = "$([Environment]::GetFolderPath('LocalApplicationData'))\Go\"
-	$Global:GoRememberFileName = "rememberLast.txt"
-	$Global:GoBookmarkFileName = "go.txt"
+$Global:GoDataDirectory = "$([Environment]::GetFolderPath('LocalApplicationData'))\Go\"
+$Global:GoRememberFileName = "rememberLast.txt"
+$Global:GoBookmarkFileName = "go.txt"
 </pre>
 
 The values above are the defaults.
