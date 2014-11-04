@@ -1,4 +1,8 @@
-﻿function go([string]$key, [string]$selectedPath = "", [switch]$help, [switch]$h, [switch]$add, [switch]$a, [switch]$delete, [switch]$d, [switch]$clear, [switch]$c, [switch]$show, [switch]$s, [switch]$showAll, [switch]$sa, [switch]$last, [switch]$l)
+﻿$Global:GoDataDirectory = "$([Environment]::GetFolderPath('LocalApplicationData'))\Go\"
+$Global:GoRememberFileName = "rememberLast.txt"
+$Global:GoBookmarkFileName = "go.txt"
+
+function go([string]$key, [string]$selectedPath = "", [switch]$help, [switch]$h, [switch]$add, [switch]$a, [switch]$delete, [switch]$d, [switch]$clear, [switch]$c, [switch]$show, [switch]$s, [switch]$showAll, [switch]$sa, [switch]$last, [switch]$l)
 {
     #------------------------------------Help------------------------------------
     if($help -or $h)
@@ -35,7 +39,7 @@
     #------------------------------------Go Last------------------------------------    
     if($last -or $l)
     {
-        $rememberFilePath = "$([Environment]::GetFolderPath('LocalApplicationData'))\Go\rememberLast.txt"
+		$rememberFilePath = $Global:GoDataDirectory + $Global:GoRememberFileName
         $rememberContent = Get-Content $rememberFilePath
         
         $lastSelected = ""
@@ -53,14 +57,13 @@
     }
 
     #------------------------------------Check Setup------------------------------------
-    $directoryBasePath = "$([Environment]::GetFolderPath('LocalApplicationData'))\Go"
-    $directoryPath = $directoryBasePath  + "\go.txt"
-    $directoryLastBookmark = $directoryBasePath + "\rememberLast.txt";
-    $hasdirectory = Test-Path $directoryBasePath
+    $hasdirectory = Test-Path $Global:GoDataDirectory
+    $directoryPath = $Global:GoDataDirectory + $Global:GoBookmarkFileName
+    $directoryLastBookmark = $Global:GoDataDirectory + $Global:GoRememberFileName
 
     if(!$hasdirectory)
     {
-        $doNothing = New-Item -ItemType directory -Path $directoryBasePath
+        $doNothing = New-Item -ItemType directory -Path $Global:GoDataDirectory
         $doNothing = New-item $directoryPath -type file
         $doNothing = New-Item $directoryLastBookmark -type file
     }
@@ -314,17 +317,26 @@
 }
 
 #------------------------------Tab Expansion------------------------------
-function TabExpansion($line, $lastWord) {
-  $LineBlocks = [regex]::Split($line, '[|;]')
-  $lastBlock = $LineBlocks[-1] 
- 
-  switch -regex ($lastBlock) {
-    'go (.*)' { goTabExpansion($lastBlock) }
-  }
+# Check if function TabExpansion already exists and backup existing version to
+# prevent breaking other TabExpansion implementations.
+# Taken from posh-git https://github.com/dahlbyk/posh-git/blob/master/GitTabExpansion.ps1#L297
+
+if (Test-Path Function:\TabExpansion) {
+    Rename-Item Function:\TabExpansion TabExpansionBackup
 }
 
+function TabExpansion($line, $lastWord) {
+    $lastBlock = [regex]::Split($line, '[|;]')[-1].TrimStart()
+
+    switch -regex ($lastBlock) {
+        # Execute go tab expansion for go command
+        '^go (.*)' { goTabExpansion($lastBlock) }
+        # Fall back on existing tab expansion
+        default { if (Test-Path Function:\TabExpansionBackup) { TabExpansionBackup $line $lastWord } }
+    }
+}
 function goTabExpansion($filter) {
-    $textFilePath = "$([Environment]::GetFolderPath('LocalApplicationData'))\Go\go.txt"
+    $textFilePath = $Global:GoDataDirectory + $Global:GoBookmarkFileName
     $textContent = Get-Content $textFilePath
     $inputKeys = $filter.Split(' ')
     $matchingKey = $inputKeys[$inputKeys.length - 1]
@@ -354,3 +366,8 @@ function goTabExpansion($filter) {
         }
     }
 }
+
+# Explicitly export the functions to hide the TabExpansionBackup function if it exists
+Export-ModuleMember go
+Export-ModuleMember goTabExpansion
+Export-ModuleMember TabExpansion

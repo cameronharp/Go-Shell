@@ -2,6 +2,8 @@
 
 Allows PowerShell users to navigate to a specific directory in a quick and easy way using bookmarks.
 
+![image](https://dl.dropboxusercontent.com/u/38619078/images/Go-Shell.gif)
+
 ##Installation##
 
 If you have [PsGet](http://psget.net/) installed you can simply execute the following in PowerShell v3:
@@ -19,6 +21,18 @@ Or you can use the following alternative:
 1. Copy `Go.psm1` to your modules folder (e.g. `$Env:PSModulePath\Go\`)
 2. Execute `Import-Module Go` (or add this command to your profile)
 3. Bookmark away!
+
+####Customization####
+Go-Shell stores its data normally in two file located in the `~\AppData\Local\Go\`-folder.
+
+This is changeable by setting this in your profile:
+<pre>
+	$Global:GoDataDirectory = "$([Environment]::GetFolderPath('LocalApplicationData'))\Go\"
+	$Global:GoRememberFileName = "rememberLast.txt"
+	$Global:GoBookmarkFileName = "go.txt"
+</pre>
+
+The values above are the defaults.
 
 ##How to Use Go##
 
