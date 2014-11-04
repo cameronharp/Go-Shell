@@ -8,10 +8,10 @@ Allows PowerShell users to navigate to a specific directory in a quick and easy 
 
 If you have [PsGet](http://psget.net/) installed you can simply execute the following:
 
-#####PowerShell 3#####
+######PowerShell 3######
 	Install-Module Go
 
-#####PowerShell 2#####
+######PowerShell 2######
 	Install-Module Go -AddToProfile 
 
 ####Manual Install####
