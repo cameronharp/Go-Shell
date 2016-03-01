@@ -12,7 +12,7 @@ If you have [PsGet](http://psget.net/) installed you can simply execute the foll
 	Install-Module Go
 
 ######PowerShell 2######
-	Install-Module Go -AddToProfile 
+	Install-Module Go -AddToProfile
 
 ####Manual Install####
 
@@ -25,10 +25,9 @@ Go-Shell stores its data normally in two files located in the `~\AppData\Local\G
 
 This is changeable by setting this in your profile:
 
-<pre>
-$Global:GoDataDirectory = "$([Environment]::GetFolderPath('LocalApplicationData'))\Go\"
-$Global:GoRememberFileName = "rememberLast.txt"
-$Global:GoBookmarkFileName = "go.txt"
+<pre>$Global:GoDataDirectory = "$([Environment]::GetFolderPath('LocalApplicationData'))\Go\"
+$Global:GoRememberFileName = "go-shell-remember-last.txt"
+$Global:GoBookmarkFileName = "go-shell.txt"
 </pre>
 
 The values above are the defaults.
@@ -36,14 +35,14 @@ The values above are the defaults.
 ##How to Use Go##
 
 <pre>Usage:
-    go label
-    go label -delete or -d
-    go label -show or -s
-    go label -add or -a
-    go label C:\SomePath -add or -a
-    go -showAll or -sa
-    go -clear or -c
-    go -last or -l
+    gd label
+    gd label -delete or -d
+    gd label -show or -s
+    gd label -add or -a
+    gd label C:\SomePath -add or -a
+    gd -showAll or -sa
+    gd -clear or -c
+    gd -last or -l
 
 Switches:
     -add or -a             Adds the current directory.

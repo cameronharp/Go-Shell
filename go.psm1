@@ -1,24 +1,24 @@
-﻿$Global:GoDataDirectory = "$([Environment]::GetFolderPath('LocalApplicationData'))\Go\"
-$Global:GoRememberFileName = "rememberLast.txt"
-$Global:GoBookmarkFileName = "go.txt"
+﻿$Global:GoDataDirectory = "$([Environment]::GetFolderPath('LocalApplicationData'))\Go-Shell\"
+$Global:GoRememberFileName = "go-shell-remember-last.txt"
+$Global:GoBookmarkFileName = "go-shell.txt"
 
-function go([string]$key, [string]$selectedPath = "", [switch]$help, [switch]$h, [switch]$add, [switch]$a, [switch]$delete, [switch]$d, [switch]$clear, [switch]$c, [switch]$show, [switch]$s, [switch]$showAll, [switch]$sa, [switch]$last, [switch]$l)
+function gd([string]$key, [string]$selectedPath = "", [switch]$help, [switch]$h, [switch]$add, [switch]$a, [switch]$delete, [switch]$d, [switch]$clear, [switch]$c, [switch]$show, [switch]$s, [switch]$showAll, [switch]$sa, [switch]$last, [switch]$l)
 {
     #------------------------------------Help------------------------------------
     if($help -or $h)
     {
         Write-Host
-        Write-Host "Go Directory Help"
+        Write-Host "Go-shell Help"
         Write-Host "-----------------"
         Write-Host "Usage:"
-        Write-Host "    go label"
-        Write-Host "    go label -delete or -d"
-        Write-Host "    go label -show or -s"
-        Write-Host "    go label -add or -a"
-        Write-Host "    go label C:\SomePath -add or -a"
-        Write-Host "    go -showAll or -sa"
-        Write-Host "    go -clear or -c"
-        Write-Host "    go -last or -l"
+        Write-Host "    gd label"
+        Write-Host "    gd label -delete or -d"
+        Write-Host "    gd label -show or -s"
+        Write-Host "    gd label -add or -a"
+        Write-Host "    gd label C:\SomePath -add or -a"
+        Write-Host "    gd -showAll or -sa"
+        Write-Host "    gd -clear or -c"
+        Write-Host "    gd -last or -l"
         Write-Host
         Write-Host "Switches:"
         Write-Host "    -add or -a             Adds the current directory."
@@ -26,7 +26,7 @@ function go([string]$key, [string]$selectedPath = "", [switch]$help, [switch]$h,
         Write-Host "    -showAll or -sa        Show all the keys and values in the directory."
         Write-Host "    -show or -s            Show the specific key and value."
         Write-Host "    -clear or -c           Clears all the keys and values in the directory."
-        Write-Host "    -last or -l            Goes to the last used go key."
+        Write-Host "    -last or -l            Goes to the last used go-shell key."
         Write-Host "    -help or -h            Displays this screen."
         Write-Host
         Write-Host "Tips:"
@@ -36,23 +36,23 @@ function go([string]$key, [string]$selectedPath = "", [switch]$help, [switch]$h,
         return
     }
 
-    #------------------------------------Go Last------------------------------------    
+    #------------------------------------Gd Last------------------------------------
     if($last -or $l)
     {
 		$rememberFilePath = $Global:GoDataDirectory + $Global:GoRememberFileName
         $rememberContent = Get-Content $rememberFilePath
-        
+
         $lastSelected = ""
 
         $rememberContent | ForEach {
             $lastSelected = $_
         }
-        
+
         if($lastSelected)
         {
             Push-Location $lastSelected
         }
-    
+
         return
     }
 
@@ -96,7 +96,7 @@ function go([string]$key, [string]$selectedPath = "", [switch]$help, [switch]$h,
                 {
                     $longestCount = $keyLength
                 }
-            
+
                 if($keyLength -gt $longestCount)
                 {
                     $longestCount = $keyLength
@@ -127,8 +127,8 @@ function go([string]$key, [string]$selectedPath = "", [switch]$help, [switch]$h,
                     for($index = 0; $index -lt $subCount; $index++)
                     {
                         $middleBreak += " "
-                    }   
-                
+                    }
+
                     Write-Host $keys[0] $middleBreak $keys[1]
                 }
 
@@ -226,7 +226,7 @@ function go([string]$key, [string]$selectedPath = "", [switch]$help, [switch]$h,
                     $directoryContent = $directoryContent |? {$_ -ne $keyToDelete}
 
                     Clear-Content $directoryPath
-                
+
                     Add-Content -Value $directoryContent -Path $directoryPath
                 }
             }
@@ -243,7 +243,7 @@ function go([string]$key, [string]$selectedPath = "", [switch]$help, [switch]$h,
         {
             $directoryContent = Get-Content $directoryPath
             $isDuplicate = $false
-        
+
             if($directoryPath)
             {
                 foreach($item in $directoryContent)
@@ -307,7 +307,7 @@ function go([string]$key, [string]$selectedPath = "", [switch]$help, [switch]$h,
                 {
                     $doNothing = New-Item $directoryLastBookmark -type file
                 }
-            
+
                 Clear-Content $directoryLastBookmark
                 Add-Content -Value $bookmark -Path $directoryLastBookmark
                 Push-Location $bookmark
@@ -330,12 +330,12 @@ function TabExpansion($line, $lastWord) {
 
     switch -regex ($lastBlock) {
         # Execute go tab expansion for go command
-        '^go (.*)' { goTabExpansion($lastBlock) }
+        '^gd (.*)' { gdTabExpansion($lastBlock) }
         # Fall back on existing tab expansion
         default { if (Test-Path Function:\TabExpansionBackup) { TabExpansionBackup $line $lastWord } }
     }
 }
-function goTabExpansion($filter) {
+function gdTabExpansion($filter) {
     $textFilePath = $Global:GoDataDirectory + $Global:GoBookmarkFileName
     $textContent = Get-Content $textFilePath
     $inputKeys = $filter.Split(' ')
@@ -368,6 +368,6 @@ function goTabExpansion($filter) {
 }
 
 # Explicitly export the functions to hide the TabExpansionBackup function if it exists
-Export-ModuleMember go
-Export-ModuleMember goTabExpansion
+Export-ModuleMember gd
+Export-ModuleMember gdTabExpansion
 Export-ModuleMember TabExpansion
