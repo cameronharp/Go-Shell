@@ -2,6 +2,9 @@
 
 Allows PowerShell users to navigate to a specific directory in a quick and easy way using bookmarks.
 
+###NOTE###
+The below gif shows the old command-line which was renamed to `gd` so prevent a clash with the GoLang command. Just swap all the `go` commands for `gd`!
+
 ![image](https://dl.dropboxusercontent.com/u/38619078/images/Go-Shell.gif)
 
 ##Installation##
